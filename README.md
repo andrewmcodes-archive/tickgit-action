@@ -20,14 +20,29 @@ name: Tickgit
 on: [push]
 
 jobs:
-  audit:
+  todos_to_stdout:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: 'Tickgit'
+      - name: "Tickgit - stdout"
         uses: andrewmcodes/tickgit-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          version: latest
+          csv: "false"
+
+  todos_to_csv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Tickgit - csv"
+        uses: andrewmcodes/tickgit-action@master
+        with:
+          version: latest
+          csv: "true"
+      - uses: actions/upload-artifact@v1
+        with:
+          name: todos
+          path: todos.csv
 ```
 
 ## Community
