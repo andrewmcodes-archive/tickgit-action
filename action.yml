@@ -1,11 +1,21 @@
 name: 'Tickgit Action'
 description: 'GitHub Action for running tickgit'
 author: 'Andrew Mason <andrewmcodes@protonmail.com>'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-env:
-  GITHUB_TOKEN: secrets.GITHUB_TOKEN
 branding:
   icon: 'shield'
   color: 'gray-dark'
+inputs:
+  version:
+    description: 'A specific release version. Defaults to latest'
+    required: true
+    default: 'latest'
+  csv:
+    description: 'Option to output the content to a csv'
+    required: false
+    default: "false"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - "${{ inputs.version }}"
+    - "${{ inputs.csv }}"

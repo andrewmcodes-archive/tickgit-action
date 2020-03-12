@@ -1,7 +1,9 @@
 FROM alpine:3.10
 
-COPY entrypoint.sh /entrypoint.sh
+RUN apk --update add --no-cache curl git jq wget bash && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apk/*
 
-RUN apk add curl
+COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
